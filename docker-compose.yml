@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+    container_name: backend
+    ports:
+      - 5000:5000
+    environment:
+      MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@db:27017/muiaaprod
+      LOKI_ENDPOINT: http://loki:3100/loki/api/v1/push
+    volumes:
+      - /logs:/app/logs
+    networks:
+      - vaiassistant
+
+networks:
+  vaiassistant:
+    external: true
